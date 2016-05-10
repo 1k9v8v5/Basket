@@ -29,8 +29,9 @@ public class Basket extends Activity {
                 Intent plist = new Intent(Basket.this,Plist.class);
                 startActivity(plist);
                 return true;
-            case R.id.action_settings:
-
+            case R.id.action_list:
+                Intent listall = new Intent(Basket.this,ListAll.class);
+                startActivity(listall);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

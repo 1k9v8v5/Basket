@@ -6,6 +6,7 @@
     <string name="title_activity_plist">Создать cписок</string>
     <string name="title_activity_addpoduct">Добавить товар</string>
     <string name="activity_poduct_list">Список товаров</string>
+    <string name="title_activity_listall">Корзина</string>
     <string name="action_addproduct">Добавить товар</string>
     <string name="listdate">Дата:</string>
     <string name="hint_namelist">Товар:</string>

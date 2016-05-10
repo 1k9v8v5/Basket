@@ -22,10 +22,14 @@
         <activity
             android:name=".AddProduct"
             android:label="@string/title_activity_addpoduct"
-            android:parentActivityName=".Plist"></activity>
-        <activity android:name=".ProductList"
+            android:parentActivityName=".Plist" />
+        <activity
+            android:name=".ProductList"
             android:label="@string/activity_poduct_list"
-            android:parentActivityName=".AddProduct">
+            android:parentActivityName=".AddProduct"></activity>
+        <activity android:name=".ListAll"
+            android:label="@string/title_activity_listall"
+            android:parentActivityName=".Basket" >
         </activity>
     </application>
 
