@@ -26,7 +26,7 @@ public class AddProduct extends Activity {
 	String LOG_TAG = "Log";
     private Date date;
     private TextView textlist;
-    private TextView tdate;
+
     private EditText ename;
     private EditText ecount;
     private EditText eprice;
@@ -55,7 +55,7 @@ public class AddProduct extends Activity {
 		name_list = intent.getStringExtra("text");
 		textlist.setText(name_list);
 		id_list = intent.getStringExtra("id");
-		tdate.setText(strTime);
+
 		ename = (EditText) findViewById(R.id.nameListEditText);
 		ecount = (EditText) findViewById(R.id.countListEditText);
 		eprice = (EditText) findViewById(R.id.priceEditText);

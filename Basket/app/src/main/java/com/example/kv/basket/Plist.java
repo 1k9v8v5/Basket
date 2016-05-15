@@ -12,7 +12,6 @@ import android.util.Log;
 public class Plist extends Activity {
 	private dbmanag dbcreate;
 	private EditText edit;
-	private Cursor cursor;
 	private String id_list="";
 	
     @Override

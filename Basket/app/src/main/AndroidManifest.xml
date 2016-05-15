@@ -31,6 +31,10 @@
             android:label="@string/title_activity_listall"
             android:parentActivityName=".Basket" >
         </activity>
+        <activity android:name=".editProduct"
+            android:label="@string/title_activity_edit"
+            android:parentActivityName=".AddProduct" >
+        </activity>
     </application>
 
 </manifest>
