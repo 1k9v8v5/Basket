@@ -19,7 +19,7 @@ import android.content.Loader;
 import java.util.concurrent.TimeUnit;
 import android.content.Context;
 import android.widget.AdapterView.*;
-
+import 	android.graphics.Color;
 public class ProductList extends Activity  implements LoaderCallbacks<Cursor> {
     private dbmanag dbcreate;
     private ListView list;
@@ -29,15 +29,29 @@ public class ProductList extends Activity  implements LoaderCallbacks<Cursor> {
     private static String id_list="";
     private String name_list="";
     private String _id = "";
-    private String active ="";
+	private long delpos;
+   // private String active ="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
         Intent intent = getIntent();
         id_list = intent.getStringExtra("id");
-        active = intent.getStringExtra("activ");
+      //  active = intent.getStringExtra("activ");
         list = (ListView) findViewById(R.id.list_product);
+		list.setOnItemClickListener(new OnItemClickListener() {
+				public void onItemClick(AdapterView<?> parent, View view,
+										int position, long id) {
+					delpos = id;
+					for(int a = 0; a < parent.getChildCount(); a++)
+					{
+						parent.getChildAt(a).setBackgroundColor(Color.parseColor("#7f020020"));
+						//parent.getChildAt(a).setBackgroundColor(Color.parseColor("0x7f020020"));
+						 
+					}
+					view.setBackgroundColor(Color.parseColor("#E3EAEE"));
+				}
+			});
         registerForContextMenu(list);
         dbcreate = new dbmanag(this);
         dbcreate.open();
@@ -83,7 +97,7 @@ public class ProductList extends Activity  implements LoaderCallbacks<Cursor> {
                 startActivity(addprodoflist);
                 return true;
             case R.id.action_del_product:
-                dbcreate.deleteList(id_list);
+              /*  dbcreate.deleteList(id_list);
                 if (active.equals("1")){
                     finish();
                 }
@@ -91,7 +105,9 @@ public class ProductList extends Activity  implements LoaderCallbacks<Cursor> {
                     getLoaderManager().getLoader(0).forceLoad();
                     Intent baskveiw = new Intent(ProductList.this, Basket.class);
                     startActivity(baskveiw);
-                }
+                }*/
+				dbcreate.deleteProductItem(Long.toString(delpos));
+                getLoaderManager().getLoader(0).forceLoad();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
