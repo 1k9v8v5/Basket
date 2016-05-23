@@ -1,15 +1,19 @@
 <resources>
     <string name="app_name">Basket</string>
     <string name="action_settings">Settings</string>
-    <string name="action_create_list">Создать список:</string>
-    <string name="action_del_product">Удалить товар</string>
+    <string name="action_create_list">Создать список</string>
+	<string name="action_open_list_cont">Открыть список</string>
+    <string name="action_del_list">Удалить список</string>
+	<string name="action_del_list_cont">Удалить список</string>
+	<string name="action_del_product">Удалить товар</string>
     <string name="action_list">Посмотреть список:</string>
     <string name="title_activity_plist">Создать cписок</string>
     <string name="title_activity_addpoduct">Добавить товар</string>
     <string name="activity_poduct_list">Список товаров</string>
     <string name="title_activity_listall">Корзина</string>
     <string name="title_activity_edit">Редактирование</string>
-    <string name="action_addproduct">Добавить товар</string>
+    <string name="action_editproduct">Редактировать</string>
+	<string name="action_addproduct">Редактировать</string>
     <string name="listdate">Дата:</string>
     <string name="hint_namelist">Товар:</string>
     <string name="hint_countlist">Количество:</string>

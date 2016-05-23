@@ -38,8 +38,8 @@ public class AddProduct extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+      //  ActionBar actionBar = getActionBar();
+      //  actionBar.setDisplayHomeAsUpEnabled(true);
         textlist = (TextView) findViewById(R.id.listNameExt);
 
         ename = (EditText) findViewById(R.id.nameListEditText);

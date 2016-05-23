@@ -1,17 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ProductList">>
-    <item android:id="@+id/action_edit_product"
-        android:title="@string/action_editproduct"
+    <item android:id="@+id/action_create_list"
+        android:title="@string/action_create_list"
         android:icon="@drawable/ic_add_black_24dp"
         android:orderInCategory="1"
         android:showAsAction="ifRoom" />
 
-    <item android:id="@+id/action_del_product"
-        android:title="@string/action_del_product"
+    <item android:id="@+id/action_del_list"
+        android:title="@string/action_del_list"
         android:icon="@drawable/ic_remove_black_24dp"
         android:orderInCategory="2"
         android:showAsAction="ifRoom" />
+    
 </menu>

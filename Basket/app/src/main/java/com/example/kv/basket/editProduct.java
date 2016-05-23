@@ -1,12 +1,14 @@
 package com.example.kv.basket;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v4.app.NavUtils;
 import android.content.Intent;
 import android.view.*;
 import android.util.Log;
 import android.widget.*;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.app.ActionBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.database.Cursor;
@@ -33,8 +35,9 @@ public class editProduct extends Activity
 	{
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
+		 ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 		dbcreate = new dbmanag(this);
-
 		Intent intent = getIntent();
 		textlist = (TextView) findViewById(R.id.listNameExt);
 		name_list = intent.getStringExtra("text");
@@ -106,20 +109,44 @@ public class editProduct extends Activity
 				}
 			});
 	}
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.product_list_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
-	public void onSave(View view)
-	{
-		Log.d(LOG_TAG, ename.getText().toString() + " " + ecount.getText().toString() + " "
-			  + posunit + eprice.getText().toString());
-		dbcreate.open();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        // TODO Auto-generated method stub
+        // Handle item selection
+        switch (item.getItemId())
+        {
+            case R.id.action_edit_product:
+                Log.d(LOG_TAG, ename.getText().toString() + " " + ecount.getText().toString() + " "
+					  + posunit + eprice.getText().toString());
+				dbcreate.open();
 
-		dbcreate.updateProduct(posunit, ename.getText().toString(), ecount.getText().toString(), eprice.getText().toString(), _id);
-		dbcreate.close();
-		Intent addprodlist = new Intent(editProduct.this, ProductList.class);
-		addprodlist.putExtra("id", id_list);
-		startActivity(addprodlist);
-	}
-	public void onClose(View view)
-	{
-	}
+				dbcreate.updateProduct(posunit, ename.getText().toString(), ecount.getText().toString(), eprice.getText().toString(), _id);
+				dbcreate.close();
+				Intent addprodlist = new Intent(editProduct.this, ProductList.class);
+				addprodlist.putExtra("id", id_list);
+				startActivity(addprodlist);
+                return true;
+            case R.id.action_del_product:
+				
+                return true;
+			case android.R.id.home:
+				//NavUtils.navigateUpFromSameTask(this);
+				Intent addprodlist1 = new Intent(editProduct.this, ProductList.class);
+				addprodlist1.putExtra("id", id_list);
+				startActivity(addprodlist1);
+				
+				return true;
+		
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

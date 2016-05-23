@@ -21,19 +21,19 @@
             android:parentActivityName=".Basket" />
         <activity
             android:name=".AddProduct"
-            android:label="@string/title_activity_addpoduct"
-            android:parentActivityName=".Plist" />
+            android:label="@string/title_activity_addpoduct"/>
+          <!--  android:parentActivityName=".Plist" />-->
         <activity
             android:name=".ProductList"
             android:label="@string/activity_poduct_list"
-            android:parentActivityName=".AddProduct"></activity>
+            android:parentActivityName=".ListAll"></activity> 
         <activity android:name=".ListAll"
             android:label="@string/title_activity_listall"
             android:parentActivityName=".Basket" >
         </activity>
         <activity android:name=".editProduct"
             android:label="@string/title_activity_edit"
-            android:parentActivityName=".AddProduct" >
+            android:parentActivityName=".ProductList">
         </activity>
     </application>
 

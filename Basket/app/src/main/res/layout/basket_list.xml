@@ -1,0 +1,22 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+	android:orientation="vertical"
+	android:padding="50sp">
+    <TextView 
+		android:id="@+id/datelistid"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"/> 
+	<TextView 
+		android:id="@+id/prom"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text=": "
+		android:layout_toRightOf="@id/datelistid"/>
+	<TextView 
+		android:id="@+id/listid"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_toRightOf="@id/prom"/>
+</RelativeLayout>
+

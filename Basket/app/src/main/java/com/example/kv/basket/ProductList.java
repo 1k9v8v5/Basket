@@ -20,7 +20,8 @@ import java.util.concurrent.TimeUnit;
 import android.content.Context;
 import android.widget.AdapterView.*;
 import 	android.graphics.Color;
-public class ProductList extends Activity  implements LoaderCallbacks<Cursor> {
+public class ProductList extends Activity  implements LoaderCallbacks<Cursor>
+{
     private dbmanag dbcreate;
     private ListView list;
     private SimpleCursorAdapter sca;
@@ -30,24 +31,41 @@ public class ProductList extends Activity  implements LoaderCallbacks<Cursor> {
     private String name_list="";
     private String _id = "";
 	private long delpos;
-   // private String active ="";
+	// private String active ="";
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+	{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
+		ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+	
+		/*if(savedInstanceState!= null){
+			id_list = savedInstanceState.getString("id_list");
+			Log.d("LOG_TAG",id_list);
+		}else{
         Intent intent = getIntent();
         id_list = intent.getStringExtra("id");
-      //  active = intent.getStringExtra("activ");
+		Log.d("LOG_TAG1",id_list);
+		}*/
+		//if(id_list.equals("")){
+			Intent intent = getIntent();
+			id_list = intent.getStringExtra("id");
+			Log.d("LOG_TAG1",id_list);
+		//	}
+		//id_list = "30";
+		//  active = intent.getStringExtra("activ");
         list = (ListView) findViewById(R.id.list_product);
 		list.setOnItemClickListener(new OnItemClickListener() {
 				public void onItemClick(AdapterView<?> parent, View view,
-										int position, long id) {
+										int position, long id)
+				{
 					delpos = id;
-					for(int a = 0; a < parent.getChildCount(); a++)
+					for (int a = 0; a < parent.getChildCount(); a++)
 					{
-						parent.getChildAt(a).setBackgroundColor(Color.parseColor("#7f020020"));
+						parent.getChildAt(a).setBackgroundColor(Color.TRANSPARENT);
 						//parent.getChildAt(a).setBackgroundColor(Color.parseColor("0x7f020020"));
-						 
+
 					}
 					view.setBackgroundColor(Color.parseColor("#E3EAEE"));
 				}
@@ -90,22 +108,23 @@ public class ProductList extends Activity  implements LoaderCallbacks<Cursor> {
         // Handle item selection
         switch (item.getItemId())
         {
-            case R.id.action_create_product:
+            case R.id.action_edit_product:
                 Intent addprodoflist = new Intent(ProductList.this, AddProduct.class);
-                addprodoflist.putExtra("id", id_list);
+                addprodoflist.putExtra("id",id_list);
                 addprodoflist.putExtra("text", name_list);
                 startActivity(addprodoflist);
+				getLoaderManager().getLoader(0).forceLoad();
                 return true;
             case R.id.action_del_product:
-              /*  dbcreate.deleteList(id_list);
-                if (active.equals("1")){
-                    finish();
-                }
-                if (active.equals("2")){
-                    getLoaderManager().getLoader(0).forceLoad();
-                    Intent baskveiw = new Intent(ProductList.this, Basket.class);
-                    startActivity(baskveiw);
-                }*/
+				/*  dbcreate.deleteList(id_list);
+				 if (active.equals("1")){
+				 finish();
+				 }
+				 if (active.equals("2")){
+				 getLoaderManager().getLoader(0).forceLoad();
+				 Intent baskveiw = new Intent(ProductList.this, Basket.class);
+				 startActivity(baskveiw);
+				 }*/
 				dbcreate.deleteProductItem(Long.toString(delpos));
                 getLoaderManager().getLoader(0).forceLoad();
                 return true;
@@ -130,7 +149,7 @@ public class ProductList extends Activity  implements LoaderCallbacks<Cursor> {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId())
         {
-            case R.id.action_create_product:
+            case R.id.action_edit_product:
                 Intent editproduct = new Intent(ProductList.this, editProduct.class);
                 _id = Long.toString(info.id);
                 //Log.d("LOG_TAG",info.id+"");
@@ -139,6 +158,7 @@ public class ProductList extends Activity  implements LoaderCallbacks<Cursor> {
                 editproduct.putExtra("id", id_list);
                 editproduct.putExtra("text", name_list);
                 startActivity(editproduct);
+				
                 return true;
             case R.id.action_del_product:
                 dbcreate.deleteProductItem(Long.toString(info.id));
@@ -195,6 +215,43 @@ public class ProductList extends Activity  implements LoaderCallbacks<Cursor> {
             return cursor;
         }
     }
+
+	@Override
+	protected void onResume()
+	{
+		// TODO: Implement this method
+		super.onResume();
+	
+		getLoaderManager().getLoader(0).forceLoad();
+	}
+
+	@Override
+	protected void onStop()
+	{
+		// TODO: Implement this method
+		super.onStop();
+		
+		Log.d("LOG_TAGstop",id_list);
+	}
+
+	@Override
+	protected void onStart()
+	{
+		// TODO: Implement this method
+		super.onStart();
+		Log.d("LOG_TAGstart",id_list);
+	}
+	
+	/*
+	@Override
+	protected void onSaveInstanceState(Bundle savedInstanceState)
+	{
+		// TODO: Implement this method
+		super.onSaveInstanceState(savedInstanceState);
+	    savedInstanceState.putString("id_list",id_list);
+		Log.d("LOG_TAG11111",id_list);
+		Log.d("LOG_TAG22222",savedInstanceState.getString("id_list"));
+	}*/
 
     @Override
     protected void onDestroy()
