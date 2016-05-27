@@ -21,10 +21,11 @@ import android.view.View;
 import android.widget.SimpleAdapter;
 import android.view.View.OnClickListener;
 import android.util.Log;
-public class AddProduct extends Activity {
+public class AddProduct extends Activity
+{
 	private dbmanag dbcreate;
 	String LOG_TAG = "Log";
-    private Date date;
+
     private TextView textlist;
 
     private EditText ename;
@@ -33,32 +34,25 @@ public class AddProduct extends Activity {
 	private String posunit="";
     private String id_list="";
 	private String name_list="";
-	private String activ = "2";
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+	{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
-      //  ActionBar actionBar = getActionBar();
-      //  actionBar.setDisplayHomeAsUpEnabled(true);
-        textlist = (TextView) findViewById(R.id.listNameExt);
-
-        ename = (EditText) findViewById(R.id.nameListEditText);
-        ecount = (EditText) findViewById(R.id.countListEditText);
-        eprice = (EditText) findViewById(R.id.priceEditText);
-		
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 		dbcreate = new dbmanag(this);
-		Intent intent = getIntent();
-		date = new Date();
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
-		String strTime = simpleDateFormat.format(date);
+		Intent intent = getIntent();	
 		textlist = (TextView) findViewById(R.id.listNameExt);
-		name_list = intent.getStringExtra("text");
+		name_list = intent.getStringExtra("name");
 		textlist.setText(name_list);
 		id_list = intent.getStringExtra("id");
 
 		ename = (EditText) findViewById(R.id.nameListEditText);
 		ecount = (EditText) findViewById(R.id.countListEditText);
 		eprice = (EditText) findViewById(R.id.priceEditText);
+
 		ArrayList<HashMap<String, String>> myArrList = new ArrayList<HashMap<String, String>>();
 		HashMap<String, String> map;
 		dbcreate.open();
@@ -78,7 +72,7 @@ public class AddProduct extends Activity {
 		SimpleAdapter adapter = new SimpleAdapter(this, myArrList,  android.R.layout.simple_spinner_item, 
 												  new String[] {"name"},
 												  new int[] {android.R.id.text1});
-		
+
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setAdapter(adapter);
 		spinner.setSelection(0);
@@ -88,7 +82,7 @@ public class AddProduct extends Activity {
 				public void onItemSelected(AdapterView<?> parent, View view,
 										   int position, long id)
 				{
-				
+
 					posunit = Integer.toString(position);
 					HashMap<String, Object> map = (HashMap<String, Object>) parent.getItemAtPosition(position);
 					Toast.makeText(AddProduct.this, map.get("unitID").toString(), Toast.LENGTH_SHORT).show();
@@ -100,26 +94,33 @@ public class AddProduct extends Activity {
 			});
     }
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+	{
         getMenuInflater().inflate(R.menu.addprod_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item)
+	{
+        switch (item.getItemId())
+		{
             case R.id.action_addprod:
 				Log.d(LOG_TAG, ename.getText().toString() + " " + ecount.getText().toString() + " "
 					  + posunit + " " + eprice.getText().toString());
 				dbcreate.open();
 				dbcreate.insertProd(posunit, ename.getText().toString(), ecount.getText().toString(), eprice.getText().toString(), id_list);
 				dbcreate.close();
-				Intent productlist = new Intent(AddProduct.this,ProductList.class);
+				Intent productlist = new Intent(AddProduct.this, ProductList.class);
 				productlist.putExtra("id", id_list);
-				productlist.putExtra("activ",activ);
-				startActivity(productlist);
+				startActivity(productlist);			
                 return true;
+			case android.R.id.home:
+				Intent addprodlist1 = new Intent(AddProduct.this, ProductList.class);
+				addprodlist1.putExtra("id", id_list);
+				startActivity(addprodlist1);
+				return true;
             case R.id.action_settings:
 
                 return true;

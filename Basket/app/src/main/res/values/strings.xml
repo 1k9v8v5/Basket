@@ -6,6 +6,7 @@
     <string name="action_del_list">Удалить список</string>
 	<string name="action_del_list_cont">Удалить список</string>
 	<string name="action_del_product">Удалить товар</string>
+	<string name="action_home_product">Главный экран</string>
     <string name="action_list">Посмотреть список:</string>
     <string name="title_activity_plist">Создать cписок</string>
     <string name="title_activity_addpoduct">Добавить товар</string>
@@ -13,7 +14,7 @@
     <string name="title_activity_listall">Корзина</string>
     <string name="title_activity_edit">Редактирование</string>
     <string name="action_editproduct">Редактировать</string>
-	<string name="action_addproduct">Редактировать</string>
+	<string name="action_addproduct">Добавить товар</string>
     <string name="listdate">Дата:</string>
     <string name="hint_namelist">Товар:</string>
     <string name="hint_countlist">Количество:</string>

@@ -3,7 +3,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.*;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.*;
 import android.util.Log;
 import android.database.sqlite.*;
@@ -21,25 +21,32 @@ import android.content.CursorLoader;
 import android.content.Loader;
 import java.util.concurrent.TimeUnit;
 import 	android.graphics.Color;
-public class ListAll extends Activity implements LoaderCallbacks<Cursor>{
+public class ListAll extends Activity implements LoaderCallbacks<Cursor>
+{
 	private dbmanag dbcreate;
 	private ListView list;
 	SimpleCursorAdapter	adapter;
 	private String id = "";
 	private long delpos;
-	//private String activ = "1";
+	private boolean lall;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+	{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_all);
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+		Intent intent = getIntent();
+		lall = intent.getBooleanExtra("lall", lall);
+
 		list = (ListView) findViewById(R.id.list_view);
 		list.setOnItemClickListener(new OnItemClickListener() {
 				public void onItemClick(AdapterView<?> parent, View view,
-										int position, long id) {
+										int position, long id)
+				{
 					delpos = id;
-					for(int a = 0; a < parent.getChildCount(); a++)
+					for (int a = 0; a < parent.getChildCount(); a++)
 					{
 						parent.getChildAt(a).setBackgroundColor(Color.TRANSPARENT);
 						//parent.getChildAt(a).setBackgroundColor(Color.parseColor("0x7f020020"));
@@ -48,7 +55,7 @@ public class ListAll extends Activity implements LoaderCallbacks<Cursor>{
 					view.setBackgroundColor(Color.parseColor("#E3EAEE"));
 				}
 			});
-        
+
 		registerForContextMenu(list);
 		dbcreate = new dbmanag(this);
 		dbcreate.open();
@@ -82,7 +89,7 @@ public class ListAll extends Activity implements LoaderCallbacks<Cursor>{
         }
 		return text;
 	}
-	  @Override
+	@Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
         getMenuInflater().inflate(R.menu.list_menu, menu);
@@ -101,7 +108,7 @@ public class ListAll extends Activity implements LoaderCallbacks<Cursor>{
                 startActivity(addprodoflist);
                 return true;
             case R.id.action_del_list:
-            
+
 				dbcreate.deleteList(Long.toString(delpos));
                 getLoaderManager().getLoader(0).forceLoad();
                 return true;
@@ -129,9 +136,9 @@ public class ListAll extends Activity implements LoaderCallbacks<Cursor>{
 			case R.id.action_open_list_cont:
 				Intent editproduct = new Intent(ListAll.this, ProductList.class);
 				id = Long.toString(info.id);
-				//Log.d("LOG_TAG",info.id+"");
+
 				editproduct.putExtra("id", id);
-				//editproduct.putExtra("activ",activ);
+				editproduct.putExtra("lall", lall);
 				startActivity(editproduct);
 				return true;
 			case R.id.action_del_list_cont:
@@ -201,7 +208,7 @@ public class ListAll extends Activity implements LoaderCallbacks<Cursor>{
 		// закрываем подключение при выходе
 		dbcreate.close();
 	}
-	}
+}
 	
     
 

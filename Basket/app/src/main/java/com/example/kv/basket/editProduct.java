@@ -1,7 +1,7 @@
 package com.example.kv.basket;
 import android.os.Bundle;
 import android.app.Activity;
-import android.support.v4.app.NavUtils;
+
 import android.content.Intent;
 import android.view.*;
 import android.util.Log;
@@ -20,7 +20,7 @@ public class editProduct extends Activity
 	String LOG_TAG = "LogEditProduct";
 
 	private TextView textlist;
-	private TextView tdate;
+	
 	private EditText ename;
 	private EditText ecount;
 	private EditText eprice;
@@ -35,7 +35,7 @@ public class editProduct extends Activity
 	{
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
-		 ActionBar actionBar = getActionBar();
+		ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 		dbcreate = new dbmanag(this);
 		Intent intent = getIntent();
@@ -44,13 +44,13 @@ public class editProduct extends Activity
 		textlist.setText(name_list);
 		id_list = intent.getStringExtra("id");
 		_id = intent.getStringExtra("_id");
-		
+
 		//Log.d(LOG_TAG,_id);
-		
+
 		ename = (EditText) findViewById(R.id.nameListEditText);
 		ecount = (EditText) findViewById(R.id.countListEditText);
 		eprice = (EditText) findViewById(R.id.priceEditText);
-		
+
 		dbcreate.open();
 		Cursor cursorproduct=dbcreate.getDataProductListId(_id);
 		while (cursorproduct.moveToNext())
@@ -92,7 +92,7 @@ public class editProduct extends Activity
         spinner.setAdapter(adapter);
 
 		spinner.setSelection(spinnerint);
-		
+
 		// устанавливаем обработчик нажатия
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 				@Override
@@ -135,16 +135,16 @@ public class editProduct extends Activity
 				startActivity(addprodlist);
                 return true;
             case R.id.action_del_product:
-				
+
                 return true;
 			case android.R.id.home:
-				//NavUtils.navigateUpFromSameTask(this);
+
 				Intent addprodlist1 = new Intent(editProduct.this, ProductList.class);
 				addprodlist1.putExtra("id", id_list);
 				startActivity(addprodlist1);
-				
+
 				return true;
-		
+
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -31,7 +31,11 @@ public class ProductList extends Activity  implements LoaderCallbacks<Cursor>
     private String name_list="";
     private String _id = "";
 	private long delpos;
-	// private String active ="";
+	private String ename="";
+    private String ecount="";
+    private String eprice="";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
 	{
@@ -39,22 +43,16 @@ public class ProductList extends Activity  implements LoaderCallbacks<Cursor>
         setContentView(R.layout.activity_product_list);
 		ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-	
-		/*if(savedInstanceState!= null){
-			id_list = savedInstanceState.getString("id_list");
-			Log.d("LOG_TAG",id_list);
-		}else{
-        Intent intent = getIntent();
-        id_list = intent.getStringExtra("id");
-		Log.d("LOG_TAG1",id_list);
-		}*/
-		//if(id_list.equals("")){
-			Intent intent = getIntent();
-			id_list = intent.getStringExtra("id");
-			Log.d("LOG_TAG1",id_list);
-		//	}
-		//id_list = "30";
-		//  active = intent.getStringExtra("activ");
+
+
+		Intent intent = getIntent();
+		id_list = intent.getStringExtra("id");
+
+		ename = intent.getStringExtra("ename");
+		ecount = intent.getStringExtra("ecount");
+		eprice = intent.getStringExtra("eprice");
+		Log.d("LOG_TAG1", id_list);
+
         list = (ListView) findViewById(R.id.list_product);
 		list.setOnItemClickListener(new OnItemClickListener() {
 				public void onItemClick(AdapterView<?> parent, View view,
@@ -97,7 +95,7 @@ public class ProductList extends Activity  implements LoaderCallbacks<Cursor>
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater().inflate(R.menu.product_list_menu, menu);
+        getMenuInflater().inflate(R.menu.product_list_menu_add, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -108,31 +106,25 @@ public class ProductList extends Activity  implements LoaderCallbacks<Cursor>
         // Handle item selection
         switch (item.getItemId())
         {
-            case R.id.action_edit_product:
+            case R.id.action_add_product:
                 Intent addprodoflist = new Intent(ProductList.this, AddProduct.class);
-                addprodoflist.putExtra("id",id_list);
-                addprodoflist.putExtra("text", name_list);
-                startActivity(addprodoflist);
+                addprodoflist.putExtra("id", id_list);
+                addprodoflist.putExtra("name", name_list);
+				startActivity(addprodoflist);			
 				getLoaderManager().getLoader(0).forceLoad();
                 return true;
-            case R.id.action_del_product:
-				/*  dbcreate.deleteList(id_list);
-				 if (active.equals("1")){
-				 finish();
-				 }
-				 if (active.equals("2")){
-				 getLoaderManager().getLoader(0).forceLoad();
-				 Intent baskveiw = new Intent(ProductList.this, Basket.class);
-				 startActivity(baskveiw);
-				 }*/
+            case R.id.action_del_product:	
 				dbcreate.deleteProductItem(Long.toString(delpos));
                 getLoaderManager().getLoader(0).forceLoad();
                 return true;
+			case android.R.id.home:
+				Intent addprodlist12 = new Intent(ProductList.this, ListAll.class);
+				startActivity(addprodlist12);
+				return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenuInfo menuInfo)
@@ -158,7 +150,7 @@ public class ProductList extends Activity  implements LoaderCallbacks<Cursor>
                 editproduct.putExtra("id", id_list);
                 editproduct.putExtra("text", name_list);
                 startActivity(editproduct);
-				
+
                 return true;
             case R.id.action_del_product:
                 dbcreate.deleteProductItem(Long.toString(info.id));
@@ -221,37 +213,9 @@ public class ProductList extends Activity  implements LoaderCallbacks<Cursor>
 	{
 		// TODO: Implement this method
 		super.onResume();
-	
+
 		getLoaderManager().getLoader(0).forceLoad();
 	}
-
-	@Override
-	protected void onStop()
-	{
-		// TODO: Implement this method
-		super.onStop();
-		
-		Log.d("LOG_TAGstop",id_list);
-	}
-
-	@Override
-	protected void onStart()
-	{
-		// TODO: Implement this method
-		super.onStart();
-		Log.d("LOG_TAGstart",id_list);
-	}
-	
-	/*
-	@Override
-	protected void onSaveInstanceState(Bundle savedInstanceState)
-	{
-		// TODO: Implement this method
-		super.onSaveInstanceState(savedInstanceState);
-	    savedInstanceState.putString("id_list",id_list);
-		Log.d("LOG_TAG11111",id_list);
-		Log.d("LOG_TAG22222",savedInstanceState.getString("id_list"));
-	}*/
 
     @Override
     protected void onDestroy()
